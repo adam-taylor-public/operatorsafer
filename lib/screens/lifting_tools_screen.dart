@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:operatorsafe/screens/lifting_plan_builder_screen.dart';
 import 'package:operatorsafe/screens/lifting_plan_screen.dart';
 
 class LiftingToolsScreen extends StatefulWidget {
@@ -102,7 +103,7 @@ class _LiftingToolsScreenState extends State<LiftingToolsScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const LiftingPlanScreen(),
+                    builder: (context) => const LiftingPlanBuilderScreen(),
                   ),
                 );
               },

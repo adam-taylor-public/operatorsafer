@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:operatorsafe/screens/lifting_conditions_screen.dart';
-import 'package:operatorsafe/screens/lifting_tools_screen.dart';
+// import 'package:operatorsafe/screens/lifting_tools_screen.dart';
 
 class DeliveryDetailsScreen extends StatelessWidget {
   const DeliveryDetailsScreen({super.key});
@@ -51,7 +51,6 @@ class DeliveryDetailsScreen extends StatelessWidget {
             buildInputRow('Contact', 'John Taylor'),
             buildInputRow('Contact No.', '+44 7911 123456'),
             const SizedBox(height: 20),
-            Spacer(),
             ElevatedButton(
               onPressed: () {
                     Navigator.push(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:operatorsafe/screens/Job_list_screen.dart';
-import 'package:operatorsafe/screens/delivery_details_screen.dart';
-import 'package:operatorsafe/screens/login_screen.dart';
+// import 'package:operatorsafe/screens/delivery_details_screen.dart';
+// import 'package:operatorsafe/screens/login_screen.dart';
 // import 'package:operatorsafe/screens/lifting_tools_screen.dart';
 
 void main() {
