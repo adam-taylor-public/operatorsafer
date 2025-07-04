@@ -8,10 +8,17 @@ class ShapeCircle extends Shape {
 
   ShapeCircle({required this.radius, required super.position, required super.size, required super.paint});
 
+
+
   @override
   void paintout(Canvas canvas) {
     // TODO: implement paintout
     canvas.drawCircle(position, radius, paint);
+  }
+  
+  @override
+  bool contains(Offset point) {
+    return false;
   }
 
 }

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:operatorsafe/painter/shapes/shape_abstract.dart';
 
+// Class for renderoutput of the shape being edited. (not meant to handle state or mutation)
 class ForegroundPainter extends CustomPainter {
   final Shape? editableShape;
-  Shape? previousShapeDetails;
 
-  ForegroundPainter(this.editableShape){
-    previousShapeDetails = editableShape;
-  }
+  ForegroundPainter(this.editableShape);
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +14,15 @@ class ForegroundPainter extends CustomPainter {
   
   @override
   void paint(Canvas canvas, Size size) {
-    // TODO: implement paint
+    // paintout the shape to canvas
+    if (editableShape != null) {
+      editableShape!.paintout(canvas);
+    }
   }
   
+  // update and repaint when the editableShape changes.
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    // TODO: implement shouldRepaint
-    throw UnimplementedError();
+  bool shouldRepaint(covariant ForegroundPainter oldDelegate) {
+    return oldDelegate.editableShape != editableShape;
   }
 }

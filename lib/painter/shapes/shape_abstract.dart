@@ -47,6 +47,8 @@ abstract class Shape {
     _isEditing != _isEditing;
   }
 
+  bool contains(Offset point);
+
   void paintout(Canvas canvas);
 }
 
