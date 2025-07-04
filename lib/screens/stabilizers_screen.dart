@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:operatorsafe/screens/lifting_plan_builder_screen.dart';
+import 'package:operatorsafe/utils/formatters.dart';
 
 class StabilizersScreen extends StatefulWidget {
   const StabilizersScreen({super.key});
@@ -8,8 +9,54 @@ class StabilizersScreen extends StatefulWidget {
   State<StabilizersScreen> createState() => _StabilizersScreenState();
 }
 
+// will need refactoring, best to demonstrate functionality.
 class _StabilizersScreenState extends State<StabilizersScreen> {
+  late Map<StabilizerLegEnum, Stabilizer> stabilizers = {};
+
   @override
+  void initState() {
+    super.initState();
+
+    stabilizers = {
+      StabilizerLegEnum.frontFront: Stabilizer(
+        stabilizerLegName: StabilizerLegEnum.frontFront,
+        stabilizerPosition: 0.0,
+        isStabilizerActive: true,
+        rotationOrientation: -1,
+      ),
+      StabilizerLegEnum.frontLeft: Stabilizer(
+        stabilizerLegName: StabilizerLegEnum.frontLeft,
+        stabilizerPosition: 1.0,
+        isStabilizerActive: true,
+        rotationOrientation: 2,
+      ),
+      StabilizerLegEnum.rearLeft: Stabilizer(
+        stabilizerLegName: StabilizerLegEnum.rearLeft,
+        stabilizerPosition: 1.0,
+        isStabilizerActive: true,
+        rotationOrientation: 2,
+      ),
+      StabilizerLegEnum.frontRight: Stabilizer(
+        stabilizerLegName: StabilizerLegEnum.frontRight,
+        stabilizerPosition: 1.0,
+        isStabilizerActive: true,
+        rotationOrientation: -1,
+      ),
+      StabilizerLegEnum.rearRight: Stabilizer(
+        stabilizerLegName: StabilizerLegEnum.rearRight,
+        stabilizerPosition: 1.0,
+        isStabilizerActive: true,
+        rotationOrientation: -1,
+      ),
+      StabilizerLegEnum.rearRear: Stabilizer(
+        stabilizerLegName: StabilizerLegEnum.rearRear,
+        stabilizerPosition: 0.0,
+        isStabilizerActive: true,
+        rotationOrientation: 1,
+      ),
+    };
+  }
+
   double _frontFront = 0.0;
   double _leftFront = 1.0;
   double _rightFront = 1.0;
@@ -17,134 +64,305 @@ class _StabilizersScreenState extends State<StabilizersScreen> {
   double _rightRear = 1.0;
   double _rearRear = 0.0;
 
+  bool _frontFrontActive = true;
+  bool _leftFrontActive = true;
+  bool _rightFrontActive = true;
+  bool _leftRearActive = false;
+  bool _rightRearActive = true;
+  bool _rearRearActive = true;
+
+  void lockSlider() {}
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Stabilizers'),
         backgroundColor: const Color(0xFFF5C400),
       ),
-      body: Container(
-        child: Padding(
-          padding: EdgeInsets.all(10),
-          child: Container(
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return Container(
+            width: constraints.maxWidth,
+            height: constraints.maxHeight,
+            padding: EdgeInsets.all(10),
             color: Colors.white30,
-            //decoration: BoxDecoration(border: Border.all() ,borderRadius: BorderRadius.circular(12)),
-            child: Column(
+            child: Table(
+              columnWidths: const {
+                0: FlexColumnWidth(1),
+                1: FlexColumnWidth(1),
+                2: FlexColumnWidth(1),
+              },
               children: [
-                // Column for 
-                // GridView.count(
-                //   crossAxisCount: 3,
-
-                // ),
-                Row(
+                // Top Row
+                TableRow(
                   children: [
-                    Text('Front Front'),
-                    RotatedBox(
-                      quarterTurns: -1,
-                      child: Slider(
-                        value: _frontFront,
-                        onChanged:
-                            (newValue) => {
-                              setState(() {
-                                _frontFront = newValue;
-                              }),
-                            },
-                      ),
+                    SizedBox(), // Top-left empty
+                    Column(
+                      children: [
+                        Text('Front Front ${toPercentage(_frontFront)}%'),
+                        RotatedBox(
+                          quarterTurns: -1,
+                          child: Slider(
+                            value: _frontFront,
+                            inactiveColor: Colors.black26,
+                            activeColor: Colors.redAccent,
+                            onChanged:
+                                _frontFrontActive
+                                    ? (newValue) {
+                                      setState(() => _frontFront = newValue);
+                                    }
+                                    : null,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _frontFrontActive = !_frontFrontActive;
+                              _frontFrontActive
+                                  ? _frontFront = 1.0
+                                  : _frontFront = 0.0;
+                            });
+                          },
+                          icon: Icon(
+                            _frontFrontActive
+                                ? Icons.block_outlined
+                                : Icons.check_circle_outlined,
+                          ),
+                        ),
+                      ],
                     ),
+                    SizedBox(), // Top-right empty
                   ],
                 ),
 
-                // column to put left sliders, truck image, right sliders
-                Row(
+                // Middle Row
+                TableRow(
                   children: [
+                    // Left-side sliders
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Front Left'),
-                        Slider(
-                          value: _leftFront,
-                          onChanged:
-                              (newValue) => {
-                                setState(() {
-                                  _leftFront = newValue;
-                                }),
-                              },
+                        Text('Left Front ${toPercentage(_leftFront)}%'),
+
+                        RotatedBox(
+                          quarterTurns: 2,
+                          child: Slider(
+                            value: _leftFront,
+                            activeColor: Colors.redAccent,
+                            onChanged:
+                                _leftFrontActive
+                                    ? (newValue) {
+                                      setState(() => _leftFront = newValue);
+                                    }
+                                    : null,
+                          ),
                         ),
-                        Text('Rear Left'),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _leftFrontActive = !_leftFrontActive;
+                              _leftFrontActive
+                                  ? _leftFront = 1.0
+                                  : _leftFront = 0.0;
+                            });
+                          },
+                          icon: Icon(
+                            _leftFrontActive
+                                ? Icons.block_outlined
+                                : Icons.check_circle_outlined,
+                          ),
+                        ),
+                        Text('Left Rear ${toPercentage(_leftRear)}%'),
+                        RotatedBox(
+                          quarterTurns: 2,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min, // keep it tight
+                            children: [
+                              Flexible(
+                                child: Slider(
+                                  value: _leftRear,
+                                  activeColor: Colors.redAccent,
+                                  onChanged:
+                                      _leftRearActive
+                                          ? (newValue) {
+                                            setState(
+                                              () => _leftRear = newValue,
+                                            );
+                                          }
+                                          : null,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _leftRearActive = !_leftRearActive;
+                                    _leftRearActive
+                                        ? _leftRear = 1.0
+                                        : _leftRear = 0.0;
+                                  });
+                                },
+                                icon: Icon(
+                                  _leftRearActive
+                                      ? Icons.block_outlined
+                                      : Icons.check_circle_outlined,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    // Crane image in center
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Image.asset(
+                        'assets/images/crane_truck_topview.png',
+                        height: 200,
+                        width: 100,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+
+                    // Right-side sliders
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Front Right ${toPercentage(_rightFront)}%'),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _leftRearActive = !_leftRearActive;
+                              _leftRear = 0.0;
+                            });
+                          },
+                          icon: Icon(
+                            _leftRearActive
+                                ? Icons.block_outlined
+                                : Icons.check_circle_outlined,
+                          ),
+                        ),
                         Slider(
                           value: _rightFront,
-                          onChanged:
-                              (newValue) => {
-                                setState(() {
-                                  _rightFront = newValue;
-                                }),
-                              },
+                          activeColor: Colors.redAccent,
+                          onChanged: (newValue) {
+                            setState(() => _rightFront = newValue);
+                          },
                         ),
-                      ],
-                    ),
-                    Image.asset(
-                      'assets/images/crane_truck_topview.png',
-                      width: 100,
-                      height: 300,
-                    ),
-                    Column(
-                      children: [
-                        Text('Front Right'),
-                        Slider(
-                          value: _leftRear,
-                          onChanged:
-                              (newValue) => {
-                                setState(() {
-                                  _leftRear = newValue;
-                                }),
-                              },
+                        Text('Rear Right ${toPercentage(_rightRear)}%'),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _leftRearActive = !_leftRearActive;
+                              _leftRear = 0.0;
+                            });
+                          },
+                          icon: Icon(
+                            _leftRearActive
+                                ? Icons.block_outlined
+                                : Icons.check_circle_outlined,
+                          ),
                         ),
-                        Text('Rear Right'),
+                        // quarterTurns: -1,
                         Slider(
                           value: _rightRear,
-                          onChanged:
-                              (newValue) => {
-                                setState(() {
-                                  _rightRear = newValue;
-                                }),
-                              },
+                          activeColor: Colors.redAccent,
+                          onChanged: (newValue) {
+                            setState(() => _rightRear = newValue);
+                          },
                         ),
                       ],
                     ),
                   ],
                 ),
-                Row(
+
+                // Bottom Row
+                TableRow(
                   children: [
-                    Text('Rear Rear'),
-                    RotatedBox(
-                      quarterTurns: 1,
-                      child: Slider(
-                        value: _rearRear,
-                        onChanged:
-                            (newValue) => {
-                              setState(() {
-                                _rearRear = newValue;
-                              }),
+                    SizedBox(), // Bottom-left empty
+                    Column(
+                      children: [
+                        Text('Rear Rear ${toPercentage(_rearRear)}%'),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _leftRearActive = !_leftRearActive;
+                              _leftRear = 0.0;
+                            });
+                          },
+                          icon: Icon(
+                            _leftRearActive
+                                ? Icons.block_outlined
+                                : Icons.check_circle_outlined,
+                          ),
+                        ),
+                        RotatedBox(
+                          quarterTurns: 1,
+                          child: Slider(
+                            value: _rearRear,
+                            activeColor: Colors.redAccent,
+                            inactiveColor: Colors.black26,
+                            onChanged: (newValue) {
+                              setState(() => _rearRear = newValue);
                             },
-                      ),
+                          ),
+                        ),
+                      ],
                     ),
+                    SizedBox(), // Bottom-right empty
                   ],
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LiftingPlanBuilderScreen(),
-                      ),
-                    );
-                  },
-                  child: Text('Next'),
                 ),
               ],
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
+  }
+}
+
+// stabilizersNames
+enum StabilizerLegEnum {
+  frontFront,
+  frontRight,
+  frontLeft,
+  rearRight,
+  rearLeft,
+  rearRear,
+}
+
+// stabilizer sliders
+class Stabilizer {
+  final StabilizerLegEnum _stabilizerLegName;
+  double _stabilizerPosition;
+  bool _isStabilizerActive;
+  final int _rotationOrientation;
+
+  Stabilizer({
+    required StabilizerLegEnum stabilizerLegName,
+    double stabilizerPosition = 1.0,
+    bool isStabilizerActive = true,
+    int rotationOrientation = 0,
+  }) : _stabilizerLegName = stabilizerLegName,
+       _stabilizerPosition = stabilizerPosition,
+       _isStabilizerActive = isStabilizerActive,
+       _rotationOrientation = rotationOrientation;
+
+  // Getters
+  StabilizerLegEnum get leg => _stabilizerLegName;
+  double get position => _stabilizerPosition;
+  bool get isActive => _isStabilizerActive;
+  int get rotation => _rotationOrientation;
+
+  int get positionPercentage => (_stabilizerPosition * 100).round();
+
+  // Setters
+  set position(double value) {
+    _stabilizerPosition = value.clamp(0.0, 1.0);
+  }
+
+  set isActive(bool value) {
+    _isStabilizerActive = value;
   }
 }
