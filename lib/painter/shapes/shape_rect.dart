@@ -2,10 +2,12 @@ import 'dart:ui';
 import 'package:operatorsafe/painter/shapes/shape_abstract.dart';
 
 class RectangleShape extends Shape {
-  final Rect rect;
-
+  late Rect rect;
   // rect doesnt require position, nor size seoerate.
-  RectangleShape(this.rect, {required super.position, required super.size, required super.paint});
+  @override
+  RectangleShape({required super.position, required super.size, required super.paint}) {
+    rect = Rect.fromLTWH(position.dx, position.dy, size.width, size.height);
+  }
 
   // if the point is within the rectangluar area
   @override

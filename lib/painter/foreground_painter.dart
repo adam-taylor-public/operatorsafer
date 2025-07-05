@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 // Class for renderoutput of the shape being edited. (not meant to handle state or mutation)
 class ForegroundPainter extends CustomPainter {
+  // final just means its a record?S
   final Rect? editableShape;
 
   ForegroundPainter({this.editableShape});
