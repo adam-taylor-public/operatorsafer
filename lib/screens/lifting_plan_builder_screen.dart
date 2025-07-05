@@ -26,23 +26,14 @@ class _LiftingPlanBuilderScreenState extends State<LiftingPlanBuilderScreen> {
         height: double.infinity,
         width: double.infinity,
         child: Column(
-          
           children: [
-            Expanded(
-              child: Stack(
-                children: [
-                  Stack(children: [CanvasManager(), ShapeToolBar()]),
-                ],
-              ),
-            ),
+            Expanded(child:CanvasManager()),
 
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => FileFormatScreen(),
-                  ),
+                  MaterialPageRoute(builder: (context) => FileFormatScreen()),
                 );
               },
               child: Text('Next'),

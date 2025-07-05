@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 // shapeToolbar
 class ShapeToolBar extends StatelessWidget {
-  ShapeToolBar({super.key});
-  late Offset _iconStartPosition;
+  final void Function(Offset details) onButtonPressedCallback;
 
-  // setter and getters
-  set iconStartPosition(Offset position) => _iconStartPosition;
-  Offset get startPosition => _iconStartPosition;
+  const ShapeToolBar({super.key, required this.onButtonPressedCallback});
+  // late Offset _iconStartPosition;
+
+  // // setter and getters
+  // set iconStartPosition(Offset position) => _iconStartPosition;
+  // Offset get startPosition => _iconStartPosition;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,14 @@ class ShapeToolBar extends StatelessWidget {
             color: Colors.white,
             border: Border.all(color: Colors.transparent, width: 2),
             borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                spreadRadius: 4,
+                blurRadius: 10,
+                offset: Offset(0, 5), // changes position of shadow
+              ),
+            ],
           ),
           // gesture detector for capturing drag events
           child: GestureDetector(
@@ -41,10 +51,14 @@ class ShapeToolBar extends StatelessWidget {
                     child: Icon(Icons.add_home_outlined),
                   ),
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      onButtonPressedCallback(Offset(100.0, 100.0));
+                    },
                     icon: Icon(Icons.add_home_outlined),
                   ),
-                  onDragEnd: (details) => print('${details.offset}'),
+                  onDragEnd: (details) {
+                    onButtonPressedCallback(details.offset);
+                  },
                 ),
 
                 VerticalDivider(),
