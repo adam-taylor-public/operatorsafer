@@ -67,7 +67,7 @@ class _StabilizersScreenState extends State<StabilizersScreen> {
   bool _frontFrontActive = true;
   bool _leftFrontActive = true;
   bool _rightFrontActive = true;
-  bool _leftRearActive = false;
+  bool _leftRearActive = true;
   bool _rightRearActive = true;
   bool _rearRearActive = true;
 
@@ -78,7 +78,7 @@ class _StabilizersScreenState extends State<StabilizersScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Stabilizers'),
-        backgroundColor: const Color(0xFFF5C400),
+        // backgroundColor: const Color(0xFFF5C400),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -87,231 +87,247 @@ class _StabilizersScreenState extends State<StabilizersScreen> {
             height: constraints.maxHeight,
             padding: EdgeInsets.all(10),
             color: Colors.white30,
-            child: Table(
-              columnWidths: const {
-                0: FlexColumnWidth(1),
-                1: FlexColumnWidth(1),
-                2: FlexColumnWidth(1),
-              },
+            child: Column(
               children: [
-                // Top Row
-                TableRow(
+                Table(
+                  columnWidths: const {
+                    0: FlexColumnWidth(1),
+                    1: FlexColumnWidth(1),
+                    2: FlexColumnWidth(1),
+                  },
                   children: [
-                    SizedBox(), // Top-left empty
-                    Column(
+                    // Top Row
+                    TableRow(
                       children: [
-                        Text('Front Front ${toPercentage(_frontFront)}%'),
-                        RotatedBox(
-                          quarterTurns: -1,
-                          child: Slider(
-                            value: _frontFront,
-                            inactiveColor: Colors.black26,
-                            activeColor: Colors.redAccent,
-                            onChanged:
-                                _frontFrontActive
-                                    ? (newValue) {
-                                      setState(() => _frontFront = newValue);
-                                    }
-                                    : null,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _frontFrontActive = !_frontFrontActive;
-                              _frontFrontActive
-                                  ? _frontFront = 1.0
-                                  : _frontFront = 0.0;
-                            });
-                          },
-                          icon: Icon(
-                            _frontFrontActive
-                                ? Icons.block_outlined
-                                : Icons.check_circle_outlined,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(), // Top-right empty
-                  ],
-                ),
-
-                // Middle Row
-                TableRow(
-                  children: [
-                    // Left-side sliders
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Left Front ${toPercentage(_leftFront)}%'),
-
-                        RotatedBox(
-                          quarterTurns: 2,
-                          child: Slider(
-                            value: _leftFront,
-                            activeColor: Colors.redAccent,
-                            onChanged:
-                                _leftFrontActive
-                                    ? (newValue) {
-                                      setState(() => _leftFront = newValue);
-                                    }
-                                    : null,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _leftFrontActive = !_leftFrontActive;
-                              _leftFrontActive
-                                  ? _leftFront = 1.0
-                                  : _leftFront = 0.0;
-                            });
-                          },
-                          icon: Icon(
-                            _leftFrontActive
-                                ? Icons.block_outlined
-                                : Icons.check_circle_outlined,
-                          ),
-                        ),
-                        Text('Left Rear ${toPercentage(_leftRear)}%'),
-                        RotatedBox(
-                          quarterTurns: 2,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min, // keep it tight
-                            children: [
-                              Flexible(
+                        SizedBox(), // Top-left empty
+                        Column(
+                          children: [
+                            Text('FF ${toPercentage(_frontFront)}%'),
+                            SizedBox(
+                              height: 125,
+                              child: RotatedBox(
+                                quarterTurns: -1,
                                 child: Slider(
-                                  value: _leftRear,
+                                  value: _frontFront,
+                                  inactiveColor: Colors.black26,
                                   activeColor: Colors.redAccent,
                                   onChanged:
-                                      _leftRearActive
+                                      _frontFrontActive
                                           ? (newValue) {
                                             setState(
-                                              () => _leftRear = newValue,
+                                              () => _frontFront = newValue,
                                             );
                                           }
                                           : null,
                                 ),
                               ),
-                              IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    _leftRearActive = !_leftRearActive;
-                                    _leftRearActive
-                                        ? _leftRear = 1.0
-                                        : _leftRear = 0.0;
-                                  });
-                                },
-                                icon: Icon(
-                                  _leftRearActive
-                                      ? Icons.block_outlined
-                                      : Icons.check_circle_outlined,
-                                ),
+                            ),
+
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _frontFrontActive = !_frontFrontActive;
+                                  _frontFrontActive
+                                      ? _frontFront = 1.0
+                                      : _frontFront = 0.0;
+                                });
+                              },
+                              icon: Icon(
+                                _frontFrontActive
+                                    ? Icons.block_outlined
+                                    : Icons.check_circle_outlined,
                               ),
-                            ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(), // Top-right empty
+                      ],
+                    ),
+
+                    // Middle Row
+                    TableRow(
+                      children: [
+                        // Left-side sliders
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('LF ${toPercentage(_leftFront)}%'),
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _leftFrontActive = !_leftFrontActive;
+                                  _leftFrontActive
+                                      ? _leftFront = 1.0
+                                      : _leftFront = 0.0;
+                                });
+                              },
+                              icon: Icon(
+                                _leftFrontActive
+                                    ? Icons.block_outlined
+                                    : Icons.check_circle_outlined,
+                              ),
+                            ),
+                            RotatedBox(
+                              quarterTurns: 2,
+                              child: Slider(
+                                value: _leftFront,
+                                activeColor: Colors.redAccent,
+                                onChanged:
+                                    _leftFrontActive
+                                        ? (newValue) {
+                                          setState(() => _leftFront = newValue);
+                                        }
+                                        : null,
+                              ),
+                            ),
+
+                            // left rear
+                            Text('LR ${toPercentage(_leftRear)}%'),
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _leftRearActive = !_leftRearActive;
+                                  _leftRearActive
+                                      ? _leftRear = 1.0
+                                      : _leftRear = 0.0;
+                                });
+                              },
+                              icon: Icon(
+                                _leftRearActive
+                                    ? Icons.block_outlined
+                                    : Icons.check_circle_outlined,
+                              ),
+                            ),
+                            RotatedBox(
+                              quarterTurns: 2,
+                              child: Slider(
+                                value: _leftRear,
+                                activeColor: Colors.redAccent,
+                                label: 'left rear',
+                                onChanged:
+                                    _leftRearActive
+                                        ? (newValue) {
+                                          setState(() => _leftRear = newValue);
+                                        }
+                                        : null,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        // Crane image in center
+                        Center(
+                          child: Image.asset(
+                            'assets/images/crane_truck_topview.png',
+                            height: 150,
+                            width: 75,
+                            fit: BoxFit.contain,
                           ),
+                        ),
+
+                        // Right-side sliders
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('RF ${toPercentage(_rightFront)}%'),
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _leftRearActive = !_leftRearActive;
+                                  _leftRear = 0.0;
+                                });
+                              },
+                              icon: Icon(
+                                _leftRearActive
+                                    ? Icons.block_outlined
+                                    : Icons.check_circle_outlined,
+                              ),
+                            ),
+                            Slider(
+                              value: _rightFront,
+                              activeColor: Colors.redAccent,
+                              onChanged: (newValue) {
+                                setState(() => _rightFront = newValue);
+                              },
+                            ),
+                            Text('RR ${toPercentage(_rightRear)}%'),
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _leftRearActive = !_leftRearActive;
+                                  _leftRear = 0.0;
+                                });
+                              },
+                              icon: Icon(
+                                _leftRearActive
+                                    ? Icons.block_outlined
+                                    : Icons.check_circle_outlined,
+                              ),
+                            ),
+                            // quarterTurns: -1,
+                            Slider(
+                              value: _rightRear,
+                              activeColor: Colors.redAccent,
+                              onChanged: (newValue) {
+                                setState(() => _rightRear = newValue);
+                              },
+                            ),
+                          ],
                         ),
                       ],
                     ),
 
-                    // Crane image in center
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Image.asset(
-                        'assets/images/crane_truck_topview.png',
-                        height: 200,
-                        width: 100,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-
-                    // Right-side sliders
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    // Bottom Row
+                    TableRow(
                       children: [
-                        Text('Front Right ${toPercentage(_rightFront)}%'),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _leftRearActive = !_leftRearActive;
-                              _leftRear = 0.0;
-                            });
-                          },
-                          icon: Icon(
-                            _leftRearActive
-                                ? Icons.block_outlined
-                                : Icons.check_circle_outlined,
-                          ),
+                        SizedBox(), // Bottom-left empty
+                        Column(
+                          children: [
+                            Text('BR ${toPercentage(_rearRear)}%'),
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _leftRearActive = !_leftRearActive;
+                                  _leftRear = 0.0;
+                                });
+                              },
+                              icon: Icon(
+                                _leftRearActive
+                                    ? Icons.block_outlined
+                                    : Icons.check_circle_outlined,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 125,
+                              child: RotatedBox(
+                                quarterTurns: 1,
+                                child: Slider(
+                                  value: _rearRear,
+                                  activeColor: Colors.redAccent,
+                                  inactiveColor: Colors.black26,
+                                  onChanged: (newValue) {
+                                    setState(() => _rearRear = newValue);
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        Slider(
-                          value: _rightFront,
-                          activeColor: Colors.redAccent,
-                          onChanged: (newValue) {
-                            setState(() => _rightFront = newValue);
-                          },
-                        ),
-                        Text('Rear Right ${toPercentage(_rightRear)}%'),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _leftRearActive = !_leftRearActive;
-                              _leftRear = 0.0;
-                            });
-                          },
-                          icon: Icon(
-                            _leftRearActive
-                                ? Icons.block_outlined
-                                : Icons.check_circle_outlined,
-                          ),
-                        ),
-                        // quarterTurns: -1,
-                        Slider(
-                          value: _rightRear,
-                          activeColor: Colors.redAccent,
-                          onChanged: (newValue) {
-                            setState(() => _rightRear = newValue);
-                          },
-                        ),
+                        SizedBox(), // Bottom-right empty
                       ],
                     ),
                   ],
                 ),
-
-                // Bottom Row
-                TableRow(
-                  children: [
-                    SizedBox(), // Bottom-left empty
-                    Column(
-                      children: [
-                        Text('Rear Rear ${toPercentage(_rearRear)}%'),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _leftRearActive = !_leftRearActive;
-                              _leftRear = 0.0;
-                            });
-                          },
-                          icon: Icon(
-                            _leftRearActive
-                                ? Icons.block_outlined
-                                : Icons.check_circle_outlined,
-                          ),
-                        ),
-                        RotatedBox(
-                          quarterTurns: 1,
-                          child: Slider(
-                            value: _rearRear,
-                            activeColor: Colors.redAccent,
-                            inactiveColor: Colors.black26,
-                            onChanged: (newValue) {
-                              setState(() => _rearRear = newValue);
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(), // Bottom-right empty
-                  ],
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LiftingPlanBuilderScreen(),
+                      ),
+                    );
+                  },
+                  child: Text('Next'),
                 ),
               ],
             ),

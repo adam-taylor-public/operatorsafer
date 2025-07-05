@@ -30,8 +30,8 @@ class JobListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('SafeLift'),
-        backgroundColor: Color(0xFFF5C400), // Your custom theme color
+        title: Text('Job list'),
+        // backgroundColor: Color(0xFFF5C400), // Your custom theme color
       ),
       body: FutureBuilder<List<DropOffJob>>(
         future: fetchDropOffJobs(),

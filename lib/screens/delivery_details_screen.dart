@@ -38,7 +38,7 @@ class DeliveryDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Delivery Details'),
-        backgroundColor: Color(0xFFF5C400),
+        // backgroundColor: Color(0xFFF5C400),
       ),
       body: SingleChildScrollView(
         child: Column(

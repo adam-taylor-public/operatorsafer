@@ -33,8 +33,8 @@ class _SafetyEquipmentScreenState extends State<SafetyEquipmentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('PPE'),
-        backgroundColor: const Color(0xFFF5C400),
+        title: const Text('Protective Equipment'),
+        // backgroundColor: const Color(0xFFF5C400),
       ),
       body: Column(
         children: [

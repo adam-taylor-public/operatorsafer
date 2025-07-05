@@ -37,7 +37,7 @@ class LiftingConditionsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Lifting Conditions'),
-        backgroundColor: Color(0xFFF5C400),
+        // backgroundColor: Color(0xFFF5C400),
       ),
       body: SingleChildScrollView(
         child: Column(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:operatorsafe/painter/canvas_painter.dart';
 import 'package:operatorsafe/painter/canvas_manager.dart';
+import 'package:operatorsafe/screens/delivery_details_screen.dart';
+import 'package:operatorsafe/screens/file_format_screen.dart';
 import 'package:operatorsafe/widgets/shape_toolbar_widget.dart';
 
 class LiftingPlanBuilderScreen extends StatefulWidget {
@@ -17,15 +19,34 @@ class _LiftingPlanBuilderScreenState extends State<LiftingPlanBuilderScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("lift plan"),
-        backgroundColor: Color(0xFFF5C400),
+        // backgroundColor: Color(0xFFF5C400),
       ),
       body: Container(
-        color: Colors.black12,
+        // color: Colors.black12,
         height: double.infinity,
         width: double.infinity,
-        child: Stack(
+        child: Column(
+          
           children: [
-            Stack(children: [CanvasManager(), ShapeToolBar()]),
+            Expanded(
+              child: Stack(
+                children: [
+                  Stack(children: [CanvasManager(), ShapeToolBar()]),
+                ],
+              ),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FileFormatScreen(),
+                  ),
+                );
+              },
+              child: Text('Next'),
+            ),
           ],
         ),
       ),

@@ -8,7 +8,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("OperatorSafe"),
-        backgroundColor: Color(0xFFF5C400),
+        // backgroundColor: Color(0xFFF5C400),
       ),
     );
   }

@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 
 // shapeToolbar
 class ShapeToolBar extends StatelessWidget {
-  const ShapeToolBar({super.key});
+  ShapeToolBar({super.key});
+  late Offset _iconStartPosition;
+
+  // setter and getters
+  set iconStartPosition(Offset position) => _iconStartPosition;
+  Offset get startPosition => _iconStartPosition;
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +29,24 @@ class ShapeToolBar extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               children: [
                 // will need to be changed to icon button when ready
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.add_home_outlined),
+                Draggable<IconData>(
+                  data: Icons.add_home_outlined, // pass what’s needed
+                  feedback: Icon(
+                    Icons.add_home_outlined,
+                    // size: 36,
+                    color: Colors.blue,
+                  ),
+                  childWhenDragging: Opacity(
+                    opacity: 0.3,
+                    child: Icon(Icons.add_home_outlined),
+                  ),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.add_home_outlined),
+                  ),
+                  onDragEnd: (details) => print('${details.offset}'),
                 ),
+
                 VerticalDivider(),
                 IconButton(
                   onPressed: () {},
