@@ -1,22 +1,45 @@
 import 'package:flutter/material.dart';
 
-// shapeToolbar
+enum ShapeType {
+  house,
+  road,
+  shuttle,
+  alignCenter,
+  cable,
+}
+
+class DraggableShape {
+  final IconData icon;
+  final ShapeType type;
+
+  DraggableShape({required this.icon, required this.type});
+}
+
 class ShapeToolBar extends StatelessWidget {
-  final void Function(Offset details) onButtonPressedCallback;
+  final void Function(DraggableDetails details, ShapeType shape) onIconDropCallback;
+  final void Function(ShapeType shape) onIconTappedCallback;
 
-  const ShapeToolBar({super.key, required this.onButtonPressedCallback});
-  // late Offset _iconStartPosition;
-
-  // // setter and getters
-  // set iconStartPosition(Offset position) => _iconStartPosition;
-  // Offset get startPosition => _iconStartPosition;
+  const ShapeToolBar({
+    super.key,
+    required this.onIconDropCallback,
+    required this.onIconTappedCallback,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final List<DraggableShape> shapes = [
+      DraggableShape(icon: Icons.add_home_outlined, type: ShapeType.house),
+      DraggableShape(icon: Icons.add_road_outlined, type: ShapeType.road),
+      DraggableShape(icon: Icons.airport_shuttle_outlined, type: ShapeType.shuttle),
+      DraggableShape(icon: Icons.align_horizontal_center, type: ShapeType.alignCenter),
+      DraggableShape(icon: Icons.cable_outlined, type: ShapeType.cable),
+      DraggableShape(icon: Icons.add_road, type: ShapeType.road),
+      DraggableShape(icon: Icons.add_road, type: ShapeType.road),
+    ];
+
     return Align(
       alignment: Alignment.bottomCenter,
       child: SizedBox(
-        // width: MediaQuery.of(context).size.width * 0.8,
         width: 250,
         height: 50,
         child: Container(
@@ -29,60 +52,36 @@ class ShapeToolBar extends StatelessWidget {
                 color: Colors.black.withOpacity(0.2),
                 spreadRadius: 4,
                 blurRadius: 10,
-                offset: Offset(0, 5), // changes position of shadow
+                offset: Offset(0, 5),
               ),
             ],
           ),
-          // gesture detector for capturing drag events
           child: GestureDetector(
-            child: ListView(
+            child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              children: [
-                // will need to be changed to icon button when ready
-                Draggable<IconData>(
-                  data: Icons.add_home_outlined, // pass what’s needed
-                  feedback: Icon(
-                    Icons.add_home_outlined,
-                    // size: 36,
-                    color: Colors.blue,
-                  ),
+              itemCount: shapes.length,
+              separatorBuilder: (_, __) => VerticalDivider(),
+              itemBuilder: (context, index) {
+                final shape = shapes[index];
+
+                return Draggable<DraggableShape>(
+                  data: shape,
+                  feedback: Icon(shape.icon, color: Colors.blue, size: 30),
                   childWhenDragging: Opacity(
                     opacity: 0.3,
-                    child: Icon(Icons.add_home_outlined),
+                    child: Icon(shape.icon),
                   ),
                   child: IconButton(
+                    icon: Icon(shape.icon),
                     onPressed: () {
-                      onButtonPressedCallback(Offset(100.0, 100.0));
+                      onIconTappedCallback(shape.type);
                     },
-                    icon: Icon(Icons.add_home_outlined),
                   ),
                   onDragEnd: (details) {
-                    onButtonPressedCallback(details.offset);
+                    onIconDropCallback(details, shape.type);
                   },
-                ),
-
-                VerticalDivider(),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.add_road_outlined),
-                ),
-                VerticalDivider(),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.airport_shuttle_outlined),
-                ),
-                VerticalDivider(),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.align_horizontal_center),
-                ),
-                VerticalDivider(),
-                IconButton(onPressed: () {}, icon: Icon(Icons.cable_outlined)),
-                VerticalDivider(),
-                IconButton(onPressed: () {}, icon: Icon(Icons.add_road)),
-                VerticalDivider(),
-                IconButton(onPressed: () {}, icon: Icon(Icons.add_road)),
-              ],
+                );
+              },
             ),
           ),
         ),

@@ -4,11 +4,23 @@ import 'package:flutter/material.dart';
 class ForegroundPainter extends CustomPainter {
   // final just means its a record?S
   final Rect? editableShape;
+  final double rotationAngle;
 
-  ForegroundPainter({this.editableShape});
+  ForegroundPainter({this.editableShape, required this.rotationAngle}) {}
 
   @override
   void paint(Canvas canvas, Size size) {
+    // saves the canvas state
+    canvas.save();
+
+    // rotation pivot point
+    canvas.translate(editableShape!.center.dx, editableShape!.center.dy);
+
+    // rotation of canvas
+    canvas.rotate(rotationAngle*10);
+
+    canvas.translate(-editableShape!.center.dx, -editableShape!.center.dy);
+
     if (editableShape != null) {
       canvas.drawRect(
         editableShape!,
@@ -17,10 +29,13 @@ class ForegroundPainter extends CustomPainter {
           ..style = PaintingStyle.fill,
       );
     }
+
+    canvas.restore();
   }
 
   @override
   bool shouldRepaint(covariant ForegroundPainter oldDelegate) {
-    return oldDelegate.editableShape != editableShape;
+    return oldDelegate.editableShape != editableShape ||
+        oldDelegate.rotationAngle != rotationAngle;
   }
 }

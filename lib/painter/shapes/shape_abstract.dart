@@ -1,5 +1,12 @@
 import 'package:flutter/widgets.dart';
 
+// enum ShapeType {
+//   square,
+//   rectangle,
+//   circle,
+//   triangle,
+// }
+
 // abstract concrete class for all shapes
 abstract class Shape {
   // required fields
@@ -7,7 +14,7 @@ abstract class Shape {
   Size _size; // object handling width height and radius
   Paint _paint; // Paint object defines coloe, stroke, fill style ect...
   double _rotation; //
-  bool _isEditing = false;
+  // bool _isEditing = false;
 
   Shape({
     required Offset position,
@@ -41,11 +48,11 @@ abstract class Shape {
     _rotation = newRotation;
   }
 
-  bool get isEditing => _isEditing;
+  // bool get isEditing => _isEditing;
   
-  void setEditing() {
-    _isEditing != _isEditing;
-  }
+  // void setEditing() {
+  //   _isEditing != _isEditing;
+  // }
 
   bool contains(Offset point);
 
