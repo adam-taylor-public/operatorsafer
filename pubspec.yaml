@@ -1,6 +1,6 @@
 name: operatorsafe
 description: "A flutter project for simplifying and assisting in lift planning for crane trucks"
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
@@ -11,12 +11,25 @@ dependencies:
     sdk: flutter
   http: ^1.4.0
   flutter_dotenv: ^5.2.1
+  pdf: ^3.10.1
+  flutter_native_splash: ^2.4.6
+  flutter_pdfview: ^1.2.5
+  path_provider: ^2.1.1
+  syncfusion_flutter_pdfviewer: ^30.1.39 # For better A4 rendering
+  geolocator: ^9.0.2
+  geocoding: ^2.0.5
+  flutter_map: ^6.1.0
+  latlong2: ^0.9.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  pdf: ^3.10.1
   flutter_native_splash: ^2.4.6
+  flutter_pdfview: ^1.2.5
+  path_provider: ^2.1.1
+  syncfusion_flutter_pdfviewer: ^30.1.39 # For better A4 rendering
 
 flutter:
   uses-material-design: true
@@ -24,6 +37,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/animations/
+    - assets/.env
 
 flutter_native_splash:
   color: "#F5C400"

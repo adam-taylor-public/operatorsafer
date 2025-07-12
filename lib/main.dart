@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:operatorsafe/screens/Job_list_screen.dart';
-// import 'package:operatorsafe/screens/delivery_details_screen.dart';
-// import 'package:operatorsafe/screens/login_screen.dart';
-// import 'package:operatorsafe/screens/lifting_tools_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:operatorsafe/screens/delivery_api_screen.dart';
+import 'package:operatorsafe/screens/sling_configuration_screen.dart';
+import 'package:operatorsafe/screens/location_details_screen.dart';
+import 'package:operatorsafe/screens/weather_condition_screen.dart';
 
-void main() {
+Future<void> main() async {
+  // Ensure Flutter bindings are initialized
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Load environment variables
+  await dotenv.load(fileName: 'assets/.env');
+
+
+  // Start the app
   runApp(const MainApp());
 }
 
@@ -14,12 +24,13 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'SafeLift',
       home: Builder(
         builder:
             (context) => Scaffold(
               appBar: AppBar(
-                title: Text('SafeLift'),
-                backgroundColor: Color(0xFFF5C400),
+                title: const Text('Lift Logic'),
+                // backgroundColor: const Color(0xFFF5C400),
               ),
               body: Center(
                 child: ElevatedButton(
@@ -27,11 +38,11 @@ class MainApp extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => JobListScreen(),
+                        builder: (context) => const DeliveryAddressScreen(),
                       ),
                     );
                   },
-                  child: Text("Start Unloading"),
+                  child: const Text("Start Unloading"),
                 ),
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:operatorsafe/screens/lift_plan_screen.dart';
 import 'package:operatorsafe/screens/lifting_plan_builder_screen.dart';
 import 'package:operatorsafe/utils/formatters.dart';
 
@@ -323,7 +324,7 @@ class _StabilizersScreenState extends State<StabilizersScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => LiftingPlanBuilderScreen(),
+                        builder: (context) => LiftPlanScreen(),
                       ),
                     );
                   },

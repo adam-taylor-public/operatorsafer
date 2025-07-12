@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:operatorsafe/screens/Job_list_screen.dart';
 import 'package:operatorsafe/screens/lifting_conditions_screen.dart';
 import 'package:operatorsafe/screens/stabilizers_screen.dart';
 // import 'package:operatorsafe/screens/lifting_tools_screen.dart';
 
 class DeliveryDetailsScreen extends StatelessWidget {
-  const DeliveryDetailsScreen({super.key});
+  const DeliveryDetailsScreen({super.key, required DropOffJob job});
 
   Widget buildInputRow(String label, String defaultValue) {
     return Padding(
