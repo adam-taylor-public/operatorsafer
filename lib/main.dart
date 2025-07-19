@@ -1,38 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:operatorsafe/screens/Job_list_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:operatorsafe/screens/delivery_api_screen.dart';
 import 'package:operatorsafe/screens/delivery_date_screen.dart';
-import 'package:operatorsafe/screens/lift_configuration_screen.dart';
-// import 'package:operatorsafe/screens/location_details_screen.dart'
-// import 'package:operatorsafe/screens/weather_condition_screen.dart';
 
+/// Entry point of the SafeLift application.
+///
+/// - Initializes Flutter bindings
+/// - Loads environment variables from the `.env` file
+/// - Runs the app starting with [MainApp] widget
 Future<void> main() async {
-  // Ensure Flutter bindings are initialized
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Load environment variables
+  // Load environment variables (API keys, config values, etc)
   await dotenv.load(fileName: 'assets/.env');
 
-
-  // Start the app
   runApp(const MainApp());
 }
 
+/// Root widget of the application.
+///
+/// This widget sets up:
+/// - The MaterialApp with app-wide properties like title
+/// - The initial home screen with a simple Scaffold
+///
+/// Expand this class to:
+/// - Add global state management (Provider, Riverpod, etc)
+/// - Setup routing/navigation
+/// - Define themes and localization
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SafeLift',
+      title: 'Lift Logic',
+
       home: Builder(
         builder:
             (context) => Scaffold(
               appBar: AppBar(
                 title: const Text('Lift Logic'),
-                // backgroundColor: const Color(0xFFF5C400),
+                // backgroundColor: const Color(0xFFF5C400), // Customize if needed
               ),
+
               body: Center(
                 child: ElevatedButton(
                   onPressed: () {
@@ -43,7 +52,7 @@ class MainApp extends StatelessWidget {
                       ),
                     );
                   },
-                  child: const Text("Start Unloading"),
+                  child: const Text('Start Unloading'),
                 ),
               ),
             ),
