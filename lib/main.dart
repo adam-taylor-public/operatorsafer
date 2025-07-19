@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:operatorsafe/screens/Job_list_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:operatorsafe/screens/delivery_api_screen.dart';
-import 'package:operatorsafe/screens/sling_configuration_screen.dart';
-import 'package:operatorsafe/screens/location_details_screen.dart';
-import 'package:operatorsafe/screens/weather_condition_screen.dart';
+import 'package:operatorsafe/screens/delivery_date_screen.dart';
+import 'package:operatorsafe/screens/lift_configuration_screen.dart';
+// import 'package:operatorsafe/screens/location_details_screen.dart'
+// import 'package:operatorsafe/screens/weather_condition_screen.dart';
 
 Future<void> main() async {
   // Ensure Flutter bindings are initialized
@@ -38,7 +39,7 @@ class MainApp extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const DeliveryAddressScreen(),
+                        builder: (context) => const DeliveryDateScreen(),
                       ),
                     );
                   },

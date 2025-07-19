@@ -13,6 +13,7 @@ dependencies:
   flutter_dotenv: ^5.2.1
   pdf: ^3.10.1
   flutter_native_splash: ^2.4.6
+  table_calendar: ^3.0.0 
   flutter_pdfview: ^1.2.5
   path_provider: ^2.1.1
   syncfusion_flutter_pdfviewer: ^30.1.39 # For better A4 rendering
@@ -20,6 +21,8 @@ dependencies:
   geocoding: ^2.0.5
   flutter_map: ^6.1.0
   latlong2: ^0.9.0
+  intl: ^0.18.0
+  printing: ^5.14.2
 
 dev_dependencies:
   flutter_test:
